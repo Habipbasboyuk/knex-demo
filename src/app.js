@@ -11,11 +11,13 @@ import helpers from "./lib/TemplateHelpers.js";
 
 const app = express(); // create an instance of express
 app.use(express.static("public")); // serve static files from the public folder
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true}));
 // ---------------------- EJS configuration ----------------------
 // EJS is a templating engine that allows you to embed JavaScript in your HTML.
 // It is used to generate HTML with plain JS, with templates that can
 // be reused throughout your application.
+
 app.use(expressLayouts); // use express-ejs-layouts to support layouts
 app.set("view engine", "ejs"); // use EJS as the view engine
 app.set("layout", "layouts/main"); // default layout file
@@ -46,7 +48,7 @@ app.use("/api/*", (req, res) => {
 // These routes will return HTML data.
 
 app.get("/", PageController.home);
-app.get("/about-us", PageController.about);
+app.get("/about", PageController.about);
 app.get("/contact", PageController.contact);
 
 // 404 page
